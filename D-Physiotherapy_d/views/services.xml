@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    
+        
+        <record id="Service_tree_inherit" model="ir.ui.view">
+            <field name="name">product.template.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree string="Products" sample="1">
+                    <field name="name"/>
+                    <field name="uom_po_id"/>
+                    <field name="list_price"/>
+                    <field name="standard_price"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Form View -->
+        <record id="Service_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+           
+            <field name="arch" type="xml">
+            <form string="Product">
+                <header>
+                    <button string="Print Labels" type="object" name="action_open_label_layout" attrs="{'invisible': [('detailed_type', '==', 'service')]}"/>
+                </header>
+                <sheet name="product_form">
+                    <field name="product_variant_count" invisible="1"/>
+                    <field name="is_product_variant" invisible="1"/>
+                    <field name="attribute_line_ids" invisible="1"/>
+                    <field name="type" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                   
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="id" invisible="True"/>
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                    <div class="oe_title">
+                        <label for="name" string="Service Name"/>
+                        <h1>
+                            <div class="d-flex">
+                                <field name="priority" widget="priority" class="me-3"/>
+                                <field class="text-break" name="name" placeholder="Evaluation"/>
+                            </div>
+                        </h1>
+                    </div>
+                  
+                    <div name="options">
+                        <span class="d-inline-block">
+                            <field name="sale_ok" invisible="True"/>
+                            <label for="sale_ok"/>
+                        </span>
+                        <span class="d-inline-block">
+                            <field name="purchase_ok" invisible="True"/>
+                            <label for="purchase_ok"/>
+                        </span>
+                    </div>
+                    <notebook>
+                        <page string="General Information" name="general_information">
+                            <group>
+                                <group name="group_general">
+                                    <field name="active" invisible="1"/>
+                                    <field name="detailed_type" invisible="1"/>
+                                    <field name="product_tooltip" string="" class="fst-italic text-muted"/>
+                                    <field name="uom_id" groups="uom.group_uom" options="{'no_create': True}"/>
+                                    <field name="uom_po_id" groups="uom.group_uom" options="{'no_create': True}"/>
+                                    <field name="service_types" />
+                                </group>
+                                <group name="group_standard_price">
+                                    <label for="list_price" class="mt-1"/>
+                                    <div name="pricing">
+                                      <field name="list_price" class="oe_inline" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                                    </div>
+                                    <label for="standard_price" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
+                                    <div name="standard_price_uom" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}">
+                                        <field name="standard_price" class="oe_inline" widget="monetary" options="{'currency_field': 'cost_currency_id', 'field_digits': True}"/>
+                                        <span groups="uom.group_uom">per
+                                            <field name="uom_name" class="oe_inline"/>
+                                        </span>
+                                    </div>
+                                    <field name="categ_id" string="Product Category"/>
+                                    <field name="product_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="cost_currency_id" invisible="1"/>
+                                    <field name="product_variant_id" invisible="1"/>
+                                </group>
+                            </group>
+                            <group string="Internal Notes">
+                                <field colspan="2" name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+                            </group>
+                        </page>
+                        <page string="Sales" attrs="{'invisible':[('sale_ok','=',False)]}" name="sales" invisible="1">
+                            <group name="sale">
+                                <group string="Upsell &amp; Cross-Sell" name="upsell" invisible="1"/>
+                            </group>
+                            <group>
+                                <group string="Sales Description" name="description">
+                                    <field colspan="2" name="description_sale" nolabel="1" placeholder="This note is added to sales orders and invoices."/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Purchase" name="purchase" attrs="{'invisible': [('purchase_ok','=',False)]}" invisible="1">
+                            <group name="purchase">
+                                <group string="Vendor Bills" name="bill"/>
+                            </group>
+                        </page>
+                        <page string="Inventory" name="inventory" groups="product.group_stock_packaging" attrs="{'invisible':[('type', '=', 'service')]}">
+                            <group name="inventory">
+                                <group name="group_lots_and_weight" string="Logistics" attrs="{'invisible': [('type', 'not in', ['product', 'consu'])]}">
+                                    <label for="weight" attrs="{'invisible':[('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
+                                    <div class="o_row" name="weight" attrs="{'invisible':[('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}">
+                                        <field name="weight" class="oe_inline"/>
+                                        <field name="weight_uom_name"/>
+                                    </div>
+                                    <label for="volume" attrs="{'invisible':[('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
+                                    <div class="o_row" name="volume" attrs="{'invisible':[('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}">
+                                        <field name="volume" string="Volume" class="oe_inline"/>
+                                        <field name="volume_uom_name"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group name="packaging" string="Packaging" colspan="4" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}" groups="product.group_stock_packaging">
+                                <field colspan="2" name="packaging_ids" nolabel="1" context="{'tree_view_ref':'product.product_packaging_tree_view2', 'default_company_id': company_id}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+
+                
+            </field>
+        </record>
+    
+        <!-- <record id="product_template_action" model="ir.actions.act_window">
+            <field name="name">Product temp</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                
+            </field>
+        </record> -->
+        <record id="product_template_ser_action" model="ir.actions.act_window">
+            <field name="name">Service</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('Service_tree_inherit')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('Service_form_inherit')})]"/>
+            <!-- <field name="domain">[]</field>
+            <field name="context">{}</field> -->
+            <!-- s -->
+        </record>
+
+        <menuitem
+            id="services_menu"
+            name="Services"
+            action="product_template_ser_action"
+            parent="droga_physio"
+            sequence="10"
+            groups="D-Physiotherapy_d.group_receptionist,D-Physiotherapy_d.group_chiled_receiption"/>
+</odoo>

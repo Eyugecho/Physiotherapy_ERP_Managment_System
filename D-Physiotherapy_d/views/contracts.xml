@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="droga_contract_view_tree" model="ir.ui.view">
+        <field name="name">droga.contract.view.tree</field>
+        <field name="model">droga.contract</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <!-- <field name="service" /> -->
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="payment_terms"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="droga_contract_view_form" model="ir.ui.view">
+        <field name="name">droga.contract.view.form</field>
+        <field name="model">droga.contract</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <!-- <field name="service" /> -->
+                        <field name="compp"/>
+                        <field name="start_date" />
+                        <field name="end_date" />
+                        <field name="payment_terms"/>
+                        <field name="service_avaliable" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="droga_contract_action" model="ir.actions.act_window">
+        <field name="name">droga.contract.action</field>
+        <field name="res_model">droga.contract</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="contract_menu"
+        name="Contracts"
+        action="droga_contract_action"
+        parent="droga_physio"
+        sequence="20"/>
+</odoo>
