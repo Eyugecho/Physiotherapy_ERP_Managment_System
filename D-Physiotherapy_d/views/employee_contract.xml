@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    
+    <record id="resource_calendar_action_physio" model="ir.actions.act_window">
+        <field name="name">Staff Schedule</field>
+        <field name="res_model">resource.calendar</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    
+    <menuitem
+        id="Staff_menu"
+        name="Staff"
+        parent="droga_physio"
+        sequence="10"/>
+  
+    <!-- <menuitem
+        id="Staff_contrat_menu"
+        name="Staff Contrat"
+        action="hr_contract.hr_contract_history_view_form_action"
+        parent="Staff_menu"
+        sequence="10" /> -->
+    <menuitem
+        id="calender_menu"
+        name="Staff Schedule"
+        action="resource_calendar_action_physio"
+        parent="Staff_menu"
+        sequence="3" />
+
+</odoo>

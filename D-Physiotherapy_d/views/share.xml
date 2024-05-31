@@ -1,0 +1,995 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="droga_physio_view_tree" model="ir.ui.view">
+        <field name="name">droga.physio.view.tree</field>
+        <field name="model">droga.physio</field>
+        <field name="arch" type="xml">
+            <tree delete = "1" sample="1">
+            <field name="full_name" />
+            <field name="sex" optional="unshow"/>   
+            <field name="age" optional="unshow"/>
+           
+   
+            <field name="register_date" />
+            <field name="phone" optional="show"/>
+            <field name="tags_s" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+            <field name="tags_cata" widget="many2many_tags" options="{'color_field': 'cata_color'}"/>
+            
+            <field name="city2"  optional="unshow"/>   
+            <!-- <field name="subcity"  optional="unshow"/>      -->
+            <!-- <field name="wereda" /> -->
+         
+            <field name="office_tel" optional="unshow"/>
+            <field name="refered_by"  optional="unshow"/>
+            <field name="house_no"  optional="unshow"/>
+            <field name="tin_no"  optional="unshow"/>
+
+<<<<<<< HEAD
+
+            <field name="organization"  optional="unshow"/>
+            <field name="state" widget="badge" decoration-success="state == 'done'" decoration-info="state == 'draft'"/>
+
+=======
+            <field name="organization" />
+>>>>>>> origin/main
+
+           
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="droga_physio_view_form" model="ir.ui.view">
+        <field name="name">droga.physio.view.form</field>
+        <field name="model">droga.physio</field>
+        <field name="arch" type="xml">
+            <form >
+                <header>
+                     <button id="button_confirm" name="action_confirm"   string="Register" class="btn-primary" type="object" states="draft"/>
+
+                     <button id="button_cancel" name="action_cancel"   string="cancel" states="done" type="object" confirm="Are you sure you need to cancel?"/>
+
+                    <field name="state" widget="statusbar"  statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                 <div class="oe_title">
+                    <h1>
+                        <field name="sequence_no" readonly="1"/>
+                    </h1>
+                 </div>
+                <!-- <div>
+                                Individual
+                                <field name="is_individual"/>
+
+                                Company
+                                <field name="is_company"/>
+                 </div> -->
+                    <group>
+                    
+                        <group string="Patient Information" >
+                     
+                                    <field name="full_name" />
+                                    <field name="sex" optional="unshow" widget="radio"/>   
+                                    <field name="age_type" />
+                                    <field name="age" optional="unshow" attrs="{'readonly': [('age_type', '=', 'months')]}"/>
+                                    <field name="age_in_months" attrs="{'readonly': [('age_type', '=', 'years')]}"/>
+                                    
+                                    <!-- <field name="current_age"/> -->
+                                    <field name="birth_year"/>
+                                    <field name="register_date" />
+<<<<<<< HEAD
+                        
+                                    <!-- <field name="appointed_to"/> -->
+=======
+
+>>>>>>> origin/main
+                        </group>
+
+                        <group  string="Address" col="2">
+
+                          <group>
+
+                                <field name="phone" wedget="phone" />
+<<<<<<< HEAD
+                                <field name="city2" />
+                                <field name="region" readonly="true"/>
+                                <!-- <field name="subcity" optional="show"/> -->
+                                <field name="wereda" />
+                                <field name="tags_s" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                                <field name="tags_cata" widget="many2many_tags" options="{'color_field': 'cata_color', 'no_create_edit': True}"/>
+                                
+
+=======
+                                <field name="city" />
+                                <field name="subcity" optional="show"/>
+                                <field name="wereda" />
+>>>>>>> origin/main
+                                
+                            
+                          </group>
+                          <group>
+                            
+                            <field name="office_tel" />
+                            <field name="refered_by" />
+                            <field name="house_no" />
+<<<<<<< HEAD
+                           <field name="tin_no"  attrs="{'invisible': [('is_organization', '=', True)]}"     />
+                            <field name="tin_company" attrs="{'invisible': [('is_organization', '=', False)]}"  />
+                            <!-- <field name="company" /> -->
+                            <field name="is_organization"/>
+                            <field name="organization" attrs="{'invisible': [('is_organization', '=', False)]}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+=======
+                            <field name="tin_no" />
+                            <!-- <field name="company" /> -->
+                            <field name="organization" />
+                            
+>>>>>>> origin/main
+                          </group>
+
+
+                        </group>
+                      
+                        
+                    </group>
+
+                    <!-- <notebook>
+                        <page string="Sesstion" >
+                   
+                            <field name="notebook_ids_sesstion">
+                                <tree editable='top' >
+                                        
+                                        
+                                        <field name="time"/>
+                                        
+                                        <field name="remark"/> 
+                                        <field name="price"/>
+                                        <field name="paid_Amount"/>
+                                        <field name="condition"/>
+                                       
+<<<<<<< HEAD
+                                        <field name="service_type"/>
+=======
+                                        <field name="Service_Type"/>
+>>>>>>> origin/main
+                                        <field name="attachment"/>
+                                        
+                                        <field name="employee_name"  optional='hide'/>
+                                        <field name="employee_id" optional='hide'/>
+                                        <field name="profession" optional='hide'/>
+                                   
+                                        <field name="age" optional='hide'/>
+                                        <field name="sex" optional='hide'/>
+
+                                </tree>
+                            </field>
+                        </page>
+
+                        
+                       
+                    </notebook> -->
+                     <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </sheet>
+                
+            </form>
+             
+        </field>
+    </record>
+
+    <record id="droga_physio_action" model="ir.actions.act_window">
+        <field name="name">New Paitient</field>
+        <field name="res_model">droga.physio</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="target">current</field>
+        <field name="context">{'user_company_id': uid}</field>
+        
+    </record>
+
+
+    <menuitem
+        id="droga_physio"
+        name="Droga Physio"
+        sequence="1"/>
+
+    <!-- <menuitem
+        id="droga_physio_menu"
+        name="Patients"
+        action="droga_physio_action"
+        parent="droga_physio"
+        sequence="5"/>  -->
+    
+    
+
+     <!-- customer -->
+
+    <record id="customer_class_view_form" model="ir.ui.view">
+        <field name="name">customer.class.view.form</field>
+        <field name="model">customer.class</field>
+        <field name="arch" type="xml">
+            <form>
+           
+                <sheet>
+
+                <div class="oe_title">
+                    <h1>
+                        <field name="sequence_no" readonly="1"/>
+                    </h1>
+                 </div>
+
+                    <!-- <div>
+                                Individual
+                                <field name="is_individual"/>
+
+                                Company
+                                <field name="is_company"/>
+                 </div> -->
+
+                 <group  string="" col="2">
+                    <group >
+                    <field name="company_name" />
+                    <field name="company_grade"/>
+                    <field name="contract" />
+                    <field name="tin_no" />
+                    </group>
+                    <group >
+                        <field name="area" />
+                        <field name="location" />
+                        <field name="phone" />
+                        <field name="mobile" />
+                        
+                    </group>
+                 </group>
+                    
+                     <notebook>
+                          <!-- <page string="Members" >
+                            <field name="droga_physio_id" />
+                        </page> -->
+                        <page name="member" string="Members">
+                            <field name="company_id" />
+                        </page>
+                    </notebook>
+          
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                    </div>
+                </sheet>
+                 
+            </form>
+        </field>
+    </record>
+
+    <record id="customer_class_view_tree" model="ir.ui.view">
+        <field name="name">customer.class.view.tree</field>
+        <field name="model">customer.class</field>
+        <field name="arch" type="xml">
+            <tree>
+                        <field name="company_name" />
+                        <field name="company_grade"/>
+                        <field name="tin_no" />
+                        <field name="area" />
+                        <field name="location" />
+                        <field name="phone" />
+                        <field name="mobile" />
+                        
+                       
+                                        
+            </tree>
+        </field>
+    </record>
+
+    <record id="customer_class_action" model="ir.actions.act_window">
+        <field name="name">Company</field>
+        <field name="res_model">customer.class</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+
+
+    <menuitem
+        id="customer_menu"
+        name="Customer"
+        parent="droga_physio"
+        action="customer_class_action"
+<<<<<<< HEAD
+        sequence="80"
+        groups="D-Physiotherapy_d.group_receptionist,D-Physiotherapy_d.group_chiled_receiption"/>
+
+=======
+        sequence="1"/>
+    <menuitem
+        id="droga_physio_menu_sub"
+        name="New Paitients"
+        action="droga_physio_action"
+        parent="customer_menu"
+        sequence="90"/>
+>>>>>>> origin/main
+    <menuitem
+        id="droga_physio_menu_sub2"
+        name="Company"
+        action="customer_class_action"
+        parent="customer_menu"
+        sequence="90"
+       />
+   
+
+    
+
+        <!-- Maria code -->
+
+
+        <record id="appointment_set_tree" model="ir.ui.view"> 
+        <field name="name">appointment.set.tree</field> 
+        <field name="model">appointment.set</field> 
+        <field name="arch" type="xml"> 
+            <tree string="" create="0"> 
+                 <field name="mrn" />   
+                 <field name="name" />  
+                 <field name="phone" />
+                <field name="start_date" /> 
+                
+                 
+                   
+            </tree> 
+        </field> 
+    </record> 
+     
+    <record id="appointment_set_form" model="ir.ui.view"> 
+        <field name="name">schedule.set.form</field> 
+        <field name="model">appointment.set</field> 
+        <field name="arch" type="xml"> 
+            <form string="" creat="0"> 
+                <sheet> 
+                <group> 
+<<<<<<< HEAD
+                     <field name="mrn" />   
+                 <field name="name" />  
+                     <field name="phone" />
+                <field name="start_date" />  
+            
+
+
+=======
+                    <field name="mrn" /> 
+                    <field name="start_date" /> 
+                    <field name="end_date" />   
+                    <field name="clinician1" /> 
+>>>>>>> origin/main
+                </group> 
+         
+                </sheet> 
+            </form> 
+        </field> 
+    </record>
+
+    <record id="appointment_set_view_calendar" model="ir.ui.view">
+        <field name="name">appointment.set.view.calendar</field>
+        <field name="model">appointment.set</field>
+        <field name="arch" type="xml">
+<<<<<<< HEAD
+             <calendar string="Reminder" date_start="start_date" date_delay="dur_ation" color="status" event_limit="5">
+              <field name="mrn" />   
+                 <field name="name" filters='1'/> 
+                 <field name="phone" /> 
+=======
+             <calendar string="Reminder" date_start="start_date">
+                <field name="mrn" /> 
+                <field name="start_date" /> 
+                <field name="end_date" />   
+                <field name="clinician1" />
+            </calendar>
+        </field>
+    </record>
+     
+    <record id="appointment_set_form" model="ir.ui.view"> 
+        <field name="name">schedule.set.form</field> 
+        <field name="model">appointment.set</field> 
+        <field name="arch" type="xml"> 
+            <form string=""> 
+            <button name="%(prescription_patient_action)d" string="Prescription" type="action" class="oe_highlight"/>
+            <button name="%(examination_form_action)d" string="Examination" type="action" class="oe_highlight"/>
+                <sheet> 
+                <group> 
+                <field name="mrn" /> 
+>>>>>>> origin/main
+                <field name="start_date" /> 
+                <field name="status" invisible='1' filters='1'/>  
+                
+
+
+            </calendar>
+        </field>
+    </record>
+     
+    <record id="appointment_set_form" model="ir.ui.view"> 
+        <field name="name">schedule.set.form</field> 
+        <field name="model">appointment.set</field> 
+        <field name="arch" type="xml"> 
+            <form string=""> 
+       
+                <sheet> 
+                <group> 
+               <field name="mrn" />   
+                 <field name="name" />  
+                   <field name="phone" />
+                <field name="start_date" /> 
+              
+    
+
+                </group> 
+         
+                </sheet> 
+            </form> 
+        </field> 
+    </record> 
+
+    
+    <record id="appointment_set_action_4" model="ir.actions.act_window"> 
+        <field name="name">Schedule</field> 
+        <field name="res_model">appointment.set</field> 
+<<<<<<< HEAD
+        <field name="view_mode">calendar,tree,form,kanban</field>
+        <field name="context">{'user_company_id': uid}</field>
+
+        
+        <!-- <field name="domain">[('clinician1.user_id', '=', uid)]</field>  -->
+        
+=======
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="domain">[('clinician1.user_id', '=', uid)]</field> 
+>>>>>>> origin/main
+    </record> 
+
+
+
+
+    <menuitem 
+        id="schedule_menu" 
+<<<<<<< HEAD
+        name="Receiption" 
+        action="appointment_set_action_4" 
+=======
+        name="Appointment" 
+        action="appointment_set_action" 
+>>>>>>> origin/main
+        parent="droga_physio" 
+        sequence="1"/>  
+    <menuitem
+            id="appointment_set_menu"
+            name="Schedule"
+            action="appointment_set_action_4"
+           
+            parent="schedule_menu"
+            sequence="30"/>
+
+    <menuitem 
+                id="reception_appointment_form_menu_4" 
+                name="Appointment" 
+                
+                parent="schedule_menu" 
+                sequence="1" 
+                groups="D-Physiotherapy_d.group_nurse,D-Physiotherapy_d.group_chiled,D-Physiotherapy_d.group_receptionist,D-Physiotherapy_d.group_chiled_receiption"/>
+
+    <menuitem
+        id="droga_physio_menu_sub"
+        name="Register Patient"
+        action="droga_physio_action"
+        parent="schedule_menu"
+        sequence="10"
+        groups="D-Physiotherapy_d.group_receptionist,D-Physiotherapy_d.group_chiled_receiption"
+        />
+
+
+ <record id="prescription_patient_view_tree" model="ir.ui.view"> 
+        <field name="name">prescription.patient.view.tree</field> 
+        <field name="model">prescription.paitent</field> 
+        <field name="arch" type="xml"> 
+            <tree string="" >
+            <field name= "patient_name"/>
+            <field name="full_name"/>
+            <field name="prescriber"/>
+            </tree> 
+        </field> 
+    </record> 
+    <record id="prescription_patient_view_form" model="ir.ui.view"> 
+        <field name="name">prescription.paitent.view.form</field> 
+        <field name="model">prescription.paitent</field> 
+        <field name="arch" type="xml"> 
+            <form> 
+                <sheet> 
+                <group> 
+                
+                    <group string="Basic Info"> 
+                        <field name="patient_name"/>
+                        <field name="full_name"/>
+                        <field name="sex"/>     
+                        <field name="age" />
+                        <field name="weight"/>
+                        <field name="Diagnosis" />
+                        <field name="inpatient" />
+                        <field name="outpatient"/> 
+                        <field name="prescriber"/>
+                        <!-- <field name="prescriber" optional="hide"/>  -->
+                        <!-- <field name="medication" optional="hide"/>     
+                        <field name="frequency" />     
+                        <field name="route" />  
+                        <field name="remark" optional="hide"/>    -->
+                    </group> 
+                    <group string= "Address"> 
+                        <!-- <field name="start_date" optional="hide"/>     
+                        <field name="date_ordered"/>      -->
+                        <!-- <field name="Region"/> -->
+                        <field name="town"/>
+                        <field name="woreda"/>
+                        <field name="kebele" />
+                        <field name="house_no" />
+                        <field name="tel_no"/>
+                        
+                        
+                    </group> 
+                </group> 
+             <!-- <notebook>
+            <page string="Detail">
+            <field name="pre_session">
+            <tree editable='top'>
+
+            <field name="drug_name" />
+            <field name="Price"/>  
+            
+            </tree>
+            </field>
+            </page>
+
+        </notebook> -->
+        
+                </sheet> 
+           
+            </form> 
+        </field> 
+    </record> 
+    <record id="prescription_patient_action" model="ir.actions.act_window"> 
+        <field name="name">Prescription </field> 
+        <field name="res_model">prescription.paitent</field> 
+        <field name="view_mode">tree,form</field> 
+    </record> 
+
+     <record id="prescription_patient_action" model="ir.actions.act_window"> 
+        <field name="name">Prescription</field> 
+        <field name="res_model">prescription.paitent</field> 
+        <field name="view_mode">tree,form</field> 
+    </record> 
+     
+         
+<<<<<<< HEAD
+=======
+            <menuitem 
+                id="prescription_patient_menu" 
+                name="Prescription" 
+                action="prescription_patient_action" 
+                parent="droga_physio" 
+                sequence="10"/> 
+
+>>>>>>> origin/main
+
+         
+      
+    
+    <!-- <record id="reminder_set_view_tree" model="ir.ui.view"> 
+        <field name="name">set.reminder.view.tree</field> 
+        <field name="model">set.reminder</field> 
+        <field name="arch" type="xml"> 
+            <tree string=""> 
+            <field name="date"/> 
+            <field name="name"/> 
+            <field name="appointed"/> 
+            <field name="mrn"/> 
+            <field name="reason"/> 
+            </tree>  
+        </field>  
+    </record>  -->
+ <record id="reminder_set_view_calander" model="ir.ui.view"> 
+        <field name="name">reminder.set.view.cal</field> 
+        <field name="model">set.reminder</field> 
+        <field name="arch" type="xml"> 
+            <calendar string="Reminder" date_start="date">
+
+                <field name="appointed" />
+                    
+            </calendar>
+        </field> 
+    </record>   
+    <record id="reminder_set_view_form" model="ir.ui.view"> 
+                <field name="name">set.reminder.view.form</field> 
+                <field name="model">set.reminder</field> 
+                <field name="arch" type="xml"> 
+                    <form> 
+                        <sheet> 
+                            <group string="information">
+
+    <group string="testing group string"> 
+                                <field name="date"/> 
+                                <field name="reason"/> 
+                                <field name="name"/> 
+                            </group> 
+                            <group string="Info"> 
+                            <field name="appointed"/> 
+                                <field name="mrn"/> 
+                                </group> 
+                            </group>  
+                             
+                            <!-- <notebook> 
+                                    <page string="Prescription date" name="prescription date"> 
+                                    <group> 
+                                    <field name="name"/> 
+                                    <field name="date"/> 
+                                    <field name="mrn"/> 
+                                    </group> 
+                                    </page> 
+                                    <page string="Schedule" name="schedule"> 
+                                    <group> 
+                                    <field name="name"/> 
+                                    </group> 
+                                    </page> 
+                                </notebook>  -->
+                        </sheet> 
+                    </form> 
+                </field> 
+    </record> 
+    <record id="reminder_set_action" model="ir.actions.act_window"> 
+                <field name="name">Set reminder</field> 
+                <field name="res_model">set.reminder</field> 
+                <field name="view_mode">tree,form,calendar</field> 
+    </record> 
+   
+           <menuitem 
+                id="Reminder_set_menu2" 
+                name="Appointment Reminder" 
+                action="reminder_set_action" 
+                parent="droga_physio" 
+                sequence="50"/> 
+
+
+<record id="referal_form_view_tree" model="ir.ui.view">
+    <field name="name">referal.form.view.tree</field>
+    <field name="model">referal.form</field>
+    <field name="arch" type="xml">
+<<<<<<< HEAD
+        <tree string="" create="0">
+            <field name="mrn" />     
+=======
+        <tree string="">
+            <field name="patient" />     
+>>>>>>> origin/main
+            <field name="date" />
+            <field name="clinician1" />     
+        </tree>
+    </field>
+</record>
+<<<<<<< HEAD
+
+<record id="referal_form_view_form" model="ir.ui.view">
+    <field name="name">referal.form.view.form</field>
+    <field name="model">referal.form</field>
+    <field name="arch" type="xml">
+        <form string="">
+            <sheet>
+            <group>
+                
+                <group  string="Basic Information">
+                    <field name="mrn" />
+                    <field name="full_name" />
+                    
+                    <field name="chiled_age_in_month" groups="D-Physiotherapy_d.group_chiled_clinician"/>
+                    <field name="chiled_age_in_year"  groups="D-Physiotherapy_d.group_chiled_clinician"/>
+                    <field name="age" groups="D-Physiotherapy_d.group_clinician"/>
+                    <field name="sex"/>     
+                    <field name="clinician_refer" /> 
+                    <!-- <field name="date" /> -->
+
+                </group>
+                <group  string="Examination">
+                    <field name="investigation" />     
+                    <field name="physiotherapy_diagnosis" />     
+                    <field name="medical_diagnosis" />     
+                    <field name="treatment_given" />
+                    <field name="reasons_for_referral" />
+                </group>
+                <group  string="." col="2">
+                    <field name="date"/>
+                    <!-- <field name="clinician1" /> -->
+                    <field name="sign" />
+                    <field name="feed_back"/>    
+                </group>    
+                
+            </group>
+            <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                    </div>
+            </sheet>
+        </form>
+    </field>
+</record>
+      <record id="referal_form_action" model="ir.actions.act_window">
+        <field name="name">Referral</field>
+        <field name="res_model">referal.form</field>
+        <field name="view_mode">tree,form</field>
+        
+</record>
+
+
+
+
+    
+      <menuitem
+        id="forms_menu"
+        name="Forms"
+        parent="droga_physio"
+        sequence="6"/>
+           
+    <menuitem 
+                id="referal_form_menu" 
+                name="Referal Form" 
+                action="referal_form_action" 
+                parent="forms_menu" 
+                sequence="80"
+                groups="D-Physiotherapy_d.group_clinician,D-Physiotherapy_d.group_chiled_clinician"/>
+
+
+
+
+
+
+                  <record id="examination_form_view_tree_appointment" model="ir.ui.view">
+        <field name="name">examination.form.view.tree</field>
+        <field name="model">examination.form</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                    <field name="mrn"  /> 
+                    <field name="patient_name"/>
+                    <!-- <field name="phone" />	     -->
+                    <field name="date" />     
+                    <field name="clinician1" /> 
+                    
+                    
+            </tree>
+        </field>
+    </record>   
+
+<record id="examination_form_view_form_appointment" model="ir.ui.view">
+    <field name="name">examination.form.view.form</field>
+    <field name="model">examination.form</field>
+    <field name="arch" type="xml">
+        <form string="">
+            <sheet>
+                <group>
+                <group >
+                    <field name="mrn" />
+                    <field name="patient_name"/>    
+                      
+                         
+                </group>
+                <group >
+                <field name="clinician1" />
+                                    </group>
+
+                
+                </group>
+
+        <notebook>
+            <page string="Appointment">
+                <field name="appo" widget="form">
+                    <tree editable='top'>
+
+                    <field name="mrn" />
+                    <field name="clincian"/>  
+                    <field name="start_date"/>
+                    
+
+                    
+                    
+                    </tree>
+                    </field>
+            </page>
+             
+
+        </notebook>
+
+    
+            </sheet>
+            
+        </form>
+   
+   
+   
+    </field>
+</record> 
+
+<record id="examination_form_appointment_action_8" model="ir.actions.act_window">
+    <field name="name">examination.form.acction.appointment</field>
+    <field name="res_model">examination.form</field>
+    <field name="view_mode">tree,form</field> 
+    
+    <field name="views" eval="[(0, 0, {'view_mode': 'tree', 'view_id': ref('examination_form_view_tree_appointment')}), (0, 0, {'view_mode': 'form', 'view_id': ref('examination_form_view_form_appointment')})]"/>
+</record>
+    
+    <!-- <menuitem
+        id="model_name_menu_8"
+        name="Appointment"
+        action="examination_form_appointment_action_8"
+       
+        parent="schedule_menu"
+        sequence="12"
+       /> -->
+    
+   
+
+=======
+
+<record id="referal_form_view_form" model="ir.ui.view">
+    <field name="name">referal.form.view.form</field>
+    <field name="model">referal.form</field>
+    <field name="arch" type="xml">
+        <form string="">
+            <sheet>
+            <group>
+                
+                <group  string="Information">
+                    <field name="patient" />     
+                    <field name="date" />
+                    <field name="clinician1" /> 
+                </group>
+                <group  string="Examination">
+                    <field name="investigation" />     
+                    <field name="physiotherapy_diagnosis" />     
+                    <field name="medical_diagnosis" />     
+                    <field name="treatment_given" />
+                    <field name="reasons_for_referral" />
+                </group>
+                        
+            </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+      <record id="referal_form_action" model="ir.actions.act_window">
+        <field name="name">Referral</field>
+        <field name="res_model">referal.form</field>
+        <field name="view_mode">tree,form</field>
+        
+      </record>  
+
+      <!-- <menuitem 
+                id="referal_form_menu" 
+                name="Refferal" 
+                action="referal_form_action" 
+                parent="droga_physio" 
+                sequence="40"/>   -->
+
+    <record id="examination_form_view_tree" model="ir.ui.view">
+        <field name="name">examination.form.view.tree</field>
+        <field name="model">examination.form</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                    <field name="patient" />     
+                    <field name="date" />     
+                    <field name="clinician1" />     
+            </tree>
+        </field>
+    </record>   
+
+<record id="examination_form_view_form" model="ir.ui.view">
+    <field name="name">examination.form.view.form</field>
+    <field name="model">examination.form</field>
+    <field name="arch" type="xml">
+        <form string="">
+            <sheet>
+                <group>
+                <group string="Information">
+                    <field name="patient" />     
+                    <field name="date" />     
+                    <field name="clinician1" />     
+                </group>
+                <group string="Medical Information">
+                    <field name="cc" />     
+                    <field name="hpi" />     
+                    <field name="rpmh" />     
+                    <field name="dignostics_imaging_finding" />
+                    <field name="observation" />
+                </group>
+
+                <group string="_">
+                    <field name="palpation" />     
+                    <field name="rom" />     
+                    <field name="lld" />     
+                    <field name="mmt" />
+                    <field name="reflex" />
+                </group>
+                <group string="_">
+                    <field name="sensory" />     
+                    <field name="special_test" />     
+                    <field name="function" />     
+                    <field name="pt" />
+                    <field name="treatment" />
+                </group>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>     
+
+<record id="examination_form_action" model="ir.actions.act_window">
+    <field name="name">Examination</field>
+    <field name="res_model">examination.form</field>
+    <field name="view_mode">tree,form</field>
+</record>  
+    <menuitem
+        id="examination_menu"
+        name="Physio Form"
+        parent="droga_physio"
+        action="examination_form_action"
+        sequence="10"/>
+    <menuitem
+        id="droga_physio_sub"
+        name="Examination Form"
+        action="examination_form_action"
+        parent="examination_menu"
+        sequence="90"/>
+    <menuitem
+        id="droga_physio_sub2"
+        name="Refferal Form"
+        action="referal_form_action"
+        parent="examination_menu"
+        sequence="90"/> 
+
+<record id="nursing_evaluation_view_tree" model="ir.ui.view">
+    <field name="name">nursing.evaluation.view.tree</field>
+    <field name="model">nursing.evaluation</field>
+    <field name="arch" type="xml">
+        <tree string="">
+            <field name="pains" />
+            <field name="physio_neurology" />
+            <field name="medical_history" />
+
+
+        </tree>
+    </field>
+</record>
+
+
+<record id="nursing_evaluation_view_form" model="ir.ui.view">
+    <field name="name">nursing.evaluation.view.form</field>
+    <field name="model">nursing.evaluation</field>
+    <field name="arch" type="xml">
+        <form string="">
+            <sheet>
+                <group>
+                     <field name="pains" widget="many2many_tags"/> 
+                     <field name="physio_neurology" widget="many2many_tags"/>
+                     <field name="medical_history" widget="many2many_tags"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+<record id="nursing_evaluation_action" model="ir.actions.act_window">
+    <field name="name">Nursing Evaluation</field>
+    <field name="res_model">nursing.evaluation</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+  <menuitem 
+                id="Reminder_set_menu2" 
+                name="Nursing Evaluation" 
+                action="nursing_evaluation_action" 
+                parent="droga_physio" 
+                sequence="70"/> 
+>>>>>>> origin/main
+</odoo>
