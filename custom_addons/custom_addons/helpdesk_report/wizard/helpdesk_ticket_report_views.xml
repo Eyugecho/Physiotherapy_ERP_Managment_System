@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="helpdesk_wizard_report_by_employee" model="ir.ui.view">
+            <field name="name">helpdesk_ticket_wizard_report.form</field>
+            <field name="model">helpdesk.ticket.wizard.report</field>
+            <field name="arch" type="xml">
+
+                <form string="Helpdesk - User Report">
+                    <group>
+                        <group>
+                            <field name="date_from"></field>
+                            <field name="date_to"></field>
+
+                        </group>
+                        <group>
+
+                            <field name="user_template_id" create="false"></field>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Generate Report" name="generate_helpdesk_ticket_report" type="object" class="btn-primary"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+
+                </form>
+
+
+            </field>
+        </record>
+
+
+        <record id="action_menu_helpdesk_by_employee" model="ir.actions.act_window">
+            <field name="name">Helpdesk - User</field>
+            <field name="res_model">helpdesk.ticket.wizard.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="helpdesk_wizard_report_by_employee"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_helpdesk_by_employee" name="Helpdesk - Employee" parent="helpdesk.helpdesk_ticket_report_menu" action="action_menu_helpdesk_by_employee" groups="helpdesk.group_helpdesk_manager" sequence="4" />
+
+
+
+    </data>
+
+
+</odoo>

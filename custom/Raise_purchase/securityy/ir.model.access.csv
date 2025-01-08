@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_raise_product_packaging,access_raise_product_packaging,model_raise_product_packaging,,1,1,1,1
+access_raise_rise_manufacturer,access_rise_manufacturer,model_rise_manufacturer,,1,1,1,1
+access_raise_rise_port,access_rise_port,model_rise_port,,1,1,1,1
+

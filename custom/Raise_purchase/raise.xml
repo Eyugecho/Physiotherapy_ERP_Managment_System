@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+       <!-- <record id="sale_order_view" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <header>
+                    <button name="%(action_transientmodel_wizard)d" string="Create Purchase Order" type="action"
+                            class="btn-primary" invisible="state in ('done', 'cancel')"/> 
+                </header>
+              
+                
+            
+                
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button class="oe_stat_button" name="action_open_purchase_order"
+                                    type="object" icon="fa-bars">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" align="center">
+                                        <field name="po_count" />
+                                    </span>
+                                    <span class="o_stat_text" >
+                                        Purchase Order
+                                    </span>
+                                </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+    
+  
+   -->
+  <record id="account_move_form_view_inherit" model="ir.ui.view">
+        <field name="name">account.move.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group" position="inside">
+                <group>
+                    <field name="lc_number" string="LC Number"/>
+                    <field name="place_delivery"  string="Place of Delivery"/>
+
+
+            
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+   
+
+    <record id="res_partner_form_view_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <group>
+                    <field name="condtact_p"/>
+                  
+
+                    
+            
+                </group>
+            </xpath>
+               
+        </field>
+    </record>
+    <record id="inherit_raise_id_inherit_product_template" model="ir.ui.view">
+        <field name="name">product.template.view.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+       
+        <xpath expr="//field[@name='detailed_type']" position="after">
+       
+       <group>
+        <!-- <label>Packaging</label> -->
+        <field name="add_packaging"/>
+        <div invisible= "'add_packaging', '!=', True">
+        <group>
+        
+            <lable>Height<span></span><span>:</span><field name="height"/><br/></lable>
+            <lable>Width<span></span><span>:</span><field name="weight"/></lable>
+            <lable>Length<span></span><span>:</span><field name="length"/></lable>
+            <lable>Volume<span></span><span>:</span><field name="volume"/></lable>
+            <lable>HSCODE<span></span><span>:</span><field name="hs_code"/></lable>
+            <!-- <lable>LC No<span></span><span>:</span><field name="lc_no"/></lable> -->
+
+            <lable>Maxiumum Quantity<span></span><span>:</span><field name="max_quantity"/></lable>
+
+            </group>
+        </div>
+        </group>
+        
+        
+        </xpath>
+        <!-- <xpath expr="//page[@name='products']" position="after">
+        <group >
+            <group >  
+                <field name="height"  />
+                <field name="weight" />
+                <field name="length" />
+            </group>
+            <group>
+                <field name="volume"  />
+                <field name="hs_code" />
+                <field name="max_quantity" />
+            </group>
+          
+        </group>
+                
+        </xpath>
+             -->
+        <notebook position="inside">
+            <page name="Rise" >
+            <group>
+            <group>
+            <field name="hs_code" />
+            </group>
+            <group>
+            <field name="manufacturer" />
+            </group></group>
+            <field name="field_name_ids">
+             
+                    <tree string="" editable="top">
+                    <field name="name" />
+                        <field name="height"  />
+                <field name="width" />
+                <field name="length" />
+                <field name="weight" />
+                 <field name="volume"  />
+                <field name="max_quantity" />
+                    </tree> 
+            </field>
+            <!-- <group >
+            <group >  
+                <field name="height"  />
+                <field name="width" />
+                <field name="length" />
+                <field name="weight" />
+            </group>
+            <group>
+                <field name="volume"  />
+               
+                <field name="max_quantity" />
+            </group>
+          
+        </group> -->
+                
+            </page>
+        </notebook>     
+        </field>
+    </record>
+
+    <record id="inherit_view_id_inherit_sale_raise_order" model="ir.ui.view">
+        <field name="name">sale.order.view.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="container" />
+                <field name="num_container" />
+                <field name="max_volume" />
+                <field name="remaining_volume" />
+                <field name="total_volume" />
+                <field name="benfi_bank" />
+
+                 <field name="manufacturer" />
+                 
+
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="country_orgin" />
+                <field name="country_destination" />
+                <field name="loding_port"/> 
+                <field name="destination_port"/>
+                <field name="port_discharge" widget="many2many_tags"/>
+                <field name="inconterm" />
+
+                <field name="mode_shipment"/>
+                <!-- <field name="lc_number" /> -->
+              
+               
+              
+            </xpath>
+
+            <xpath expr="//tree" position="inside">
+            <field name="manufacturer" invisible="True" />
+            <field name="product_int"  invisible="True"/>
+           <field name="pakage" context="{'default_product_id': product_template_id}"  
+           domain="[('product_id.id', '=', product_int)]"
+           >
+           <!-- <attribute name="domain">[('product_id.id', '=',product_int)] "</attribute> -->
+            </field>
+            <field name="total_volume" />
+            <field name="max_quantity" string="Pakage Quantity"/>
+            <field name="box_qty" string="Pakage Qty." />
+            <field name="remaining_quantity" string="Remaning Quantity"/>
+            
+        </xpath>
+        </field>
+    </record>
+
+</odoo>

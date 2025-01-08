@@ -1,0 +1,22 @@
+2024-12-24 07:49:36,246 12444 INFO ? odoo: Odoo version 16.0-20240823 
+2024-12-24 07:49:36,246 12444 INFO ? odoo: Using configuration file at E:\odoo_16_latest\server\odoo.conf 
+2024-12-24 07:49:36,246 12444 INFO ? odoo: addons paths: ['E:\\odoo_16_latest\\server\\odoo\\addons', 'e:\\odoo_16_latest\\sessions\\addons\\16.0', 'e:\\odoo_16_latest\\server\\odoo\\addons'] 
+2024-12-24 07:49:36,246 12444 INFO ? odoo: database: openpg@localhost:5432 
+2024-12-24 07:49:37,624 12444 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at E:\odoo_16_latest\thirdparty\wkhtmltopdf.exe 
+2024-12-24 07:49:39,820 12444 INFO ? odoo.service.server: Initiating shutdown 
+2024-12-24 07:49:39,820 12444 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2024-12-24 07:49:50,936 14712 INFO ? odoo: Odoo version 16.0-20240823 
+2024-12-24 07:49:50,936 14712 INFO ? odoo: Using configuration file at E:\odoo_16_latest\server\odoo.conf 
+2024-12-24 07:49:50,936 14712 INFO ? odoo: addons paths: ['E:\\odoo_16_latest\\server\\odoo\\addons', 'e:\\odoo_16_latest\\sessions\\addons\\16.0', 'e:\\odoo_16_latest\\server\\odoo\\addons'] 
+2024-12-24 07:49:50,936 14712 INFO ? odoo: database: openpg@localhost:5432 
+2024-12-24 07:49:51,470 14712 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at E:\odoo_16_latest\thirdparty\wkhtmltopdf.exe 
+2024-12-24 07:49:52,206 14712 INFO ? odoo.service.server: HTTP service (werkzeug) running on LPHQIT03.Drogapharma.com:8069 
+2024-12-24 07:54:41,787 9688 INFO ? odoo: Odoo version 16.0-20240823 
+2024-12-24 07:54:41,788 9688 INFO ? odoo: Using configuration file at E:\odoo_16_latest\server\odoo.conf 
+2024-12-24 07:54:41,788 9688 INFO ? odoo: addons paths: ['E:\\odoo_16_latest\\server\\odoo\\addons', 'e:\\odoo_16_latest\\sessions\\addons\\16.0', 'e:\\odoo_16_latest\\server\\odoo\\addons', 'e:\\odoo_16_latest\\server\\custom'] 
+2024-12-24 07:54:41,788 9688 INFO ? odoo: database: openpg@localhost:5432 
+2024-12-24 07:54:42,164 9688 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at E:\odoo_16_latest\thirdparty\wkhtmltopdf.exe 
+2024-12-24 07:54:42,672 9688 INFO ? odoo.service.server: HTTP service (werkzeug) running on LPHQIT03.Drogapharma.com:8070 
+2024-12-24 19:11:05,388 14712 INFO ? odoo.service.server: Initiating shutdown 
+2024-12-24 19:11:05,419 14712 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2024-12-24 19:11:05,961 14712 INFO ? odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 2 connections  

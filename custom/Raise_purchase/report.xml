@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="custom_invoice_report_template" inherit_id="sale.report_saleorder_document">
+      
+            <xpath expr="//div[@class='page']" position="inside">
+                <!-- Move the existing content to the left -->
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div t-raw="0"/>
+                    </div>
+
+                    <!-- New table on the right with fixed position and smaller size -->
+                    <div  style="position: fixed; top: 20px; right: 30px; width: 350px; font-size:12px;">
+                        <strong>PI #:   <span t-field="doc.name"/> </strong>
+                   
+                    </div>
+                    <div  style="position: fixed; top: 0px; right: 30px; width: 350px; font-size:12px;">
+                             <div t-if="doc.date_order"  name="informations_date">
+                                <strong t-if="doc.state in ['draft', 'sent']">Date:</strong>
+                                <strong t-else="">Date:</strong>
+                                <span class="m-0" t-field="doc.date_order" t-options="{&quot;widget&quot;: &quot;date&quot;}"></span>
+                            </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <table class="table table-condensed table-sm" style="position: fixed; top: 60px; right: 30px; width: 350px; font-size:12px;">
+                            <tr >
+                                <td style="width:40%; font-size:12px;">Country of Origin</td>
+                                <td t-esc="doc.country_orgin.name or ''"/>
+                            </tr>
+                            <tr>
+                                <td style="width:40%"> Country of Destination</td>
+                                <td t-esc="doc.country_destination.name or ''"/>
+                            </tr>
+                            
+                            <tr>
+                                <td>Term of Payment</td>
+                                <td t-esc="doc.payment_term_id.name or ''"/>
+                            </tr>
+                            <tr>
+                                <td>Inconterm</td>
+                                <td t-esc="doc.inconterm.name or ''"/>
+                            </tr>
+                        </table>
+                        <!-- <table class="table table-condensed" style="position: fixed; top: 80px; bottom: 20px; right: 30px; width: 350px; font-size:12px;">
+                      
+                        </table> -->
+                        <!-- <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Number of Boxes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td t-esc="line.box_qty"/>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//t[@t-set='address']" position="replace">
+             
+                    <div t-set="address">
+                  
+                          <div t-set="address">
+                                <div t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                                <p t-if="doc.partner_id.vat"><t t-out="doc.company_id.account_fiscal_country_id.vat_label or 'Tax ID'"/>: <span t-field="doc.partner_id.vat"/></p>
+                        </div>
+                    </div>
+            </xpath>
+             <!-- <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']" position="inside">
+             <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Number of Boxes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td t-esc="line.box_qty"/>
+                                </tr>
+                            </tbody>
+                        </table>
+             </xpath> -->
+        </template>
+        
+        <template id="custom_invoice_report_template_customer" inherit_id="sale.report_saleorder_document">
+        
+            <xpath expr="//div[@class='page']" position="before">
+            <div class="row mt-4 mb-2" id="customer_details  float-left">
+                <div class="col-auto col-6 mw-100 mb-2 float-left" style=" top: 0px; ">
+
+                <strong>Supplier:</strong><br/>
+                    <p>
+                        
+                     <span t-if="doc.company_id" t-field="doc.company_id.name"/><br/>
+                     <span t-if="doc.company_id" t-field="doc.company_id.street"/><br/>
+
+                     <span>Tel:</span><span t-if="doc.company_id" t-field="doc.company_id.phone"/>
+                     ,<span t-if="doc.company_id" t-field="doc.company_id.mobile"/><br/>
+                    <span>Email:</span><span t-if="doc.company_id" t-field="doc.company_id.email"/><br/>
+                    <span t-if="doc.company_id" t-field="doc.company_id.website"/><br/>
+                <div style=" top: 30px; ">
+                <!-- <strong >Shipped To:</strong><br/> -->
+                                    <p>
+                                        <span t-if="doc.partner_id.name" t-field="doc.partner_id.name"/>
+                                        <br/>
+                                        <span>Tel:</span><span t-if="doc.partner_id.phone" t-field="doc.partner_id.phone"/>
+                                        <br/>
+                                        <span>Email:</span><span t-if="doc.partner_id.email" t-field="doc.partner_id.email"/>
+                                        <br/>
+                                        <span>Contact Person:</span><span t-if="doc.partner_id.condtact_p" t-field="doc.partner_id.condtact_p"/>   
+                                        <br/>
+                                        <span>Sub City:</span><span t-if="doc.partner_id.street" t-field="doc.partner_id.street"/>
+                                        <br/>
+                                        <span>Woreda:</span><span t-if="doc.partner_id.city" t-field="doc.partner_id.city"/>   
+                                        <br/>
+                                    </p>
+                </div>
+                  
+                    
+
+
+
+
+
+                    </p>
+                </div>
+              
+            </div>
+            
+          </xpath>
+
+              <xpath expr="/t/t/div[3]/table/thead/tr/th[1]" position="after">
+    <th>
+      <span>HS Code</span>
+    </th>
+  </xpath>
+  <xpath expr="/t/t/div[3]/table/tbody/t[2]/tr/t[1]/td[1]" position="after">
+    <td>
+      <span t-field="line.hs_code"/>
+    </td>
+  </xpath>
+  <xpath expr="/t/t/div[3]/table/tbody/t[2]/t[3]/tr/td" position="attributes">
+    <attribute name="colspan">100</attribute>
+  </xpath>
+  <xpath expr="/t/t/div[3]/table/thead/tr/th[3]" position="after">
+    <th>
+      <span>Box Qty.</span>
+    </th>
+  </xpath>
+  <xpath expr="/t/t/div[3]/table/tbody/t[2]/tr/t[1]/td[3]" position="after">
+    <td>
+      <span t-field="line.box_qty"/>
+    </td>
+  </xpath>
+  <xpath expr="/t/t/div[3]/table/tbody/t[2]/t[3]/tr/td" position="attributes">
+    <attribute name="colspan">101</attribute>
+  </xpath>
+            </template>
+
+
+                   <template id="custom_invoice_report_template_customer_bottom" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//div[@class='page']" position="after">
+            <div class="row mt-4 " id="customer_details  ">
+                <div class="col-auto col-6 mw-100  " >
+<!--                 
+                 <t t-foreach="lines_to_report" t-as="line">
+                                          <span t-field="line.name" t-options="{'widget': 'text'}"/>,
+
+                 </t>                          -->
+                       
+        <div style="top:0px">
+                     <!-- <strong>Shipping info:</strong><br/> -->
+                    <p>
+                    <span>Shipping Instruction:</span>   <span t-if="doc.mode_shipment" t-field="doc.mode_shipment"/><br/>
+                    <span>Port of Destn:</span>   <span t-if="doc.destination_port" t-field="doc.destination_port"/><br/>
+                    <span>Port of Loading:</span>   <span t-if="doc.loding_port" t-field="doc.loding_port"/><br/>
+                    <span>Price Validation Period:</span>   <span t-if="doc.payment_term_id" t-field="doc.payment_term_id"/><br/>
+                    <span>Benficiary Bank:</span>   <span t-if="doc.benfi_bank" t-field="doc.benfi_bank.name"/>,
+                    <span t-if="doc.benfi_bank" t-field="doc.benfi_bank.bic"/><br/>
+               
+
+                    <span>Manufactured By:</span>   <span t-if="doc.manufacturer" t-field="doc.manufacturer"/>,
+                    <span t-if="doc.manufacturer" t-field="doc.manufacturer.sub_city"/>,
+                    <span t-if="doc.manufacturer" t-field="doc.manufacturer.street"/>,
+                    <span t-if="doc.manufacturer" t-field="doc.manufacturer.state"/>,
+
+
+<!-- 
+                    <span>Manufactured By:</span>   <span t-if="o.order_sales_id.manufacturer" t-field="o.order_sales_id.manufacturer"/><br/>,
+                    <span>Manufactured By:</span>   <span t-if="o.order_sales_id.manufacturer." t-field="o.order_sales_id.manufacturer"/><br/> -->
+
+                    </p>
+        </div>    
+            <div style="top:50px">
+                    <p>
+                    <span>Mr.Lucas Dechasa Biru</span>   <br/>
+
+                    <span>General Manager</span>  <br/>
+                    <span>RISE Global GmbH</span> <br/>
+                    <span>Subbelrather Strasse 15a</span>  <br/>
+                    <span>Köln ,50823 Germany</span>  <br/>
+       
+
+
+                    </p>
+            </div>
+
+            <!-- <div style="position: fixed; top: 60px; right: 30px; width: 350px; font-size:12px;" >
+             <p>
+                    <span>Mr.Lucas Dechasa Biru</span>   <br/>
+
+                    <span>General Manager</span>  <br/>
+                    <span>RISE Global GMBH</span> <br/>
+                    <span>Subbelrather Strasse 15a</span>  <br/>
+                    <span>50823 Koln</span>  <br/>
+       
+
+
+             </p>
+            
+            </div> -->
+            
+                </div>
+                </div>
+            </xpath>
+            </template>
+    
+<!--- - - - - -  Commercial invoice start - - - - - - - -->
+
+<template id="custom_invoice_report_template_22" inherit_id="account.report_invoice_document">
+<xpath expr="//div[@class='row']" position="after">
+ 
+           <div class="row">
+                    <div class="col-xs-8">
+                        <div t-raw="0"/>
+                    </div>
+                    <!-- New table on the right with fixed position and smaller size -->
+                     <div  style="position: fixed; top: 20px; right: 30px; width: 350px; font-size:12px;">
+                     <strong>Invoice #:</strong>
+                 <strong t-field="o.payment_reference"></strong>
+                     </div>
+                    <div  style="position: fixed; top: 0px; right: 30px; width: 350px; font-size:12px;">
+                          
+                                <t t-if="o.move_type == 'out_invoice'"><strong> Date:</strong></t>
+                                <t t-elif="o.move_type == 'out_refund'"><strong>  Date:</strong></t>
+                                <t t-elif="o.move_type == 'out_receipt'"><strong> Date:</strong></t>
+                                <t t-else=""><strong>Date:</strong></t>
+                                <span class="m-0" t-field="o.invoice_date"></span>
+                              
+                     </div>
+                    
+                    <div class="col-xs-4">
+
+                        <table class="table table-condensed table-sm" style="position: fixed; top: 60px; right: 30px; width: 350px; font-size:12px;">
+                            <tr >
+                                <td style="width:40%; font-size:12px;">Country of Origin</td>
+                                <td t-esc="o.order_sales_id.country_orgin.name or ''"/>
+                            </tr>
+                            <tr>
+                                <td style="width:40%"> Country of Destination</td>
+                                <td t-esc="o.order_sales_id.country_destination.name or ''"/>
+                            </tr>
+                            <tr>
+                                <td>HS Code</td>
+                                <td t-esc="o.order_sales_id.hs_code or ''"/>
+                            </tr>
+                        </table>
+                     
+                     
+                    </div>
+                    
+                        
+                </div>
+  
+</xpath>
+<xpath expr="/t/t/div[3]/div[1]/table/thead/tr/th[2]" position="after">
+    <th>
+      <span>Unit of Measure</span>
+    </th>
+  </xpath>
+  <xpath expr="/t/t/div[3]/div[1]/table/tbody/t[3]/tr/t[1]/td[2]" position="after">
+    <td>
+      <span t-field="line.product_uom_id"/>
+    </td>
+  </xpath>
+  <xpath expr="/t/t/div[3]/div[1]/table/tbody/t[3]/t[3]/tr/td" position="attributes">
+    <attribute name="colspan">100</attribute>
+  </xpath>
+<xpath expr="//div[@class='row']" position="replace">
+        <div >
+                        <strong style=" top: 30px; ">Shipped To:</strong>
+                       
+                    <p>
+                        <span t-if="o.partner_id.name" t-field="o.partner_id.name"/>
+                        <br/>
+                        <span t-if="o.partner_id.phone" t-field="o.partner_id.phone"/>
+                        <br/>
+                        <span t-if="o.partner_id.email" t-field="o.partner_id.email"/>
+                        <br/>
+                        <span>Street:</span><span t-if="o.partner_id.street" t-field="o.partner_id.street"/>
+                        <br/>
+                        <span>Contact Person:</span><span t-if="o.partner_id.condtact_p" t-field="o.partner_id.condtact_p"/>   
+
+                        <!-- <span>Contact Person:</span><span t-if="o.partner_id.contact_person" t-field="o.partner_id.contact_person"/>    -->
+                        <br/>
+                        <span>City:</span><span t-if="o.partner_id.city" t-field="o.partner_id.city"/>   
+                        <br/>
+                        
+                        <!-- <span t-if="doc.partner_id.city" t-field="doc.partner_id.city"/>    -->
+                        <br/>
+                        <!-- <span t-if="doc.partner_id.address" t-field="doc.partner_id.address"/> -->
+                    </p>
+                     <!-- <p>
+                      <strong>Customer:</strong>   <b><span t-if="o.partner_shipping_id" t-field="o.partner_shipping_id"/></b>
+                        <br/>
+                      <strong>Email:</strong>   <b>  <span t-if="o.partner_shipping_id.email" t-field="o.partner_shipping_id.email"/></b>
+                        <br/>
+                       <strong>Phone:</strong>   <b>     <span t-if="o.partner_shipping_id.phone" t-field="o.partner_shipping_id.phone"/> </b>
+                        <br/>
+                      <strong>City:</strong>   <b><span t-if="o.order_sales_id.partner_shipping_id.city" t-field="o.order_sales_id.partner_shipping_id.city"/></b>
+                    </p> -->
+            <div t-if="o.partner_shipping_id and (o.partner_shipping_id != o.partner_id)">
+                <div class="col-6">
+                    <div t-set="information_block">
+                        <div groups="account.group_delivery_invoice_address" name="shipping_address_block">
+                            <strong>Customer Address:</strong>
+                            <div t-field="o.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        </xpath>
+
+</template>
+
+<template id="custom_invoice_report_template_customer_bottom_test" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@class='page']" position="after">
+            <div class="row mt-4 " id="customer_details  ">
+                <div class="col-auto col-6 mw-100  " >
+                    <!-- <strong>Shipping info:</strong><br/> -->
+                        
+                        <t t-foreach="lines" t-as="line">
+                        
+                         <span t-field="line.name" t-options="{'widget': 'text'}"/>,
+
+                        </t>    
+                       
+ <div style="top:30px">
+                    <p>
+                   
+                    <span>Lc Number:</span>   <span t-if="o.lc_number" t-field="o.lc_number"/><br/>
+                    <span>Tin Number:</span> <span t-if="o.partner_id.vat" t-field="o.partner_id.vat"/><br/>
+                    <span>Trade Term:</span>   <span t-if="o.order_sales_id.inconterm" t-field="o.order_sales_id.inconterm"/><br/>
+                    <span>Port of Loading:</span>   <span t-if="o.order_sales_id.loding_port" t-field="o.order_sales_id.loding_port"/><br/>
+                    <span>Port Of Discharge/Place of Delivery:</span>   <span t-if="o.place_delivery" t-field="o.place_delivery" widget="many2many_tags"/><br/>
+                    <span>Payment Term:</span>   <span t-if="o.order_sales_id.payment_term_id" t-field="o.order_sales_id.payment_term_id"/><br/>
+                     <span>Origin of Goods:</span><span t-esc="o.order_sales_id.country_orgin.name or ''"/>
+                    <!-- <span>Benficiary Bank:</span>   <span t-if="o.benfi_bank" t-field="o.benfi_bank.name"/>, -->
+
+                    <!-- <span>Manufactured By:</span>   <span t-if="o.manufacturer" t-field="o.manufacturer"/>, -->
+
+                    <!-- <span>Shipping Instruction:</span>   <span t-if="o.order_sales_id.mode_shipment" t-field="o.order_sales_id.mode_shipment"/><br/> -->
+
+
+                    <!-- <span>Port of Destn:</span>   <span t-if="o.order_sales_id.destination_port" t-field="o.order_sales_id.destination_port"/><br/> -->
+             
+
+
+
+                    </p>
+ </div>
+                </div>
+                </div>
+            </xpath>
+</template>
+
+<template id="custom_invoice_report" inherit_id="account.report_invoice_document">
+    <xpath expr="//p[@name='payment_communication']" position="replace">
+      
+        <div class="mt-4">
+         
+           
+        </div>
+      
+    </xpath>
+</template>
+
+<!-- - - - - -  Commercial invoice end - - - - - - -  -->
+
+
+
+<!-- - - - - - - - -  Delivery Slip Start  - - - - - - -->
+
+<!-- <template id="custom_invoice_report_deliv" inherit_id="stock.report_delivery_document">
+
+    <xpath expr="//t[@t-set='address']" position="replace">
+
+                     <strong>Shipped to:</strong>
+                    <p>
+                        <span t-if="o.partner_id.name" t-field="o.partner_id.name"/>
+                        <br/>
+                        <span>Tel:</span><span t-if="o.partner_id.phone" t-field="o.partner_id.phone"/>
+                        <br/>
+                        <span>Email:</span><span t-if="o.partner_id.email" t-field="o.partner_id.email"/>
+                        <br/>
+                        <br/>
+                        <span>Street:</span><span t-if="o.partner_id.street" t-field="o.partner_id.street"/>
+                        <br/>
+                        <span>City:</span><span t-if="o.partner_id.city" t-field="o.partner_id.city"/>   
+                        <br/>
+               
+         
+
+                     
+
+                        
+                          
+                       
+                                        
+                                       
+
+                    <div  style="position: fixed; top: 0px; right: 30px; width: 350px; font-size:12px;">
+                        <div t-if="o.state" class="col-auto" name="div_sched_date">
+                            <strong>Date:</strong>
+                            <span t-if="o.state == 'done'">
+                                <span t-field="o.date_done"/>
+                            </span>
+                            <span t-if="o.state != 'done'">
+                                <span t-field="o.scheduled_date"/>
+                           </span>
+                        </div>
+
+                    </div>
+
+                     <table class="table table-condensed table-sm" style="position: fixed; top: 50px; right: 30px; width: 350px; font-size:12px;">
+                            <tr >
+                                <td style="width:40%; font-size:12px;">Country of Origin</td>
+                                <td t-esc="o.sale_id.country_orgin.name or ''"/>
+                            </tr>
+                            <tr>
+                                <td style="width:40%"> Country of Destination</td>
+                                <td t-esc="o.sale_id.country_destination.name or ''"/>
+                            </tr>
+                            <tr>
+                                <td>HS Code</td>
+                                <td t-esc="o.sale_id.hs_code or ''"/>
+                            </tr>
+                     </table>
+
+                    </p>
+    </xpath>
+
+    <xpath expr="//t[@t-set='information_block']" position="replace">
+         <strong>Delivery Address:</strong><br/>
+                    <p>
+                        <span t-if="o.move_ids[0].partner_id" t-field="o.move_ids[0].partner_id"/>
+                        <br/>
+                  <div t-field="o.move_ids[0].partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+                        <br/>
+                        <span t-if="doc.partner_id.address" t-field="doc.partner_id.address"/> 
+                     </p> 
+    </xpath>
+</template> -->
+<!-- <template id="custom_invoice_report_template_customer_bottom_2t" inherit_id="stock.report_delivery_document">
+            <xpath expr="//div[@class='page']" position="after">
+            <div class="row mt-4 " id="customer_details_2t  ">
+
+            
+                <div class="col-auto col-6 mw-100  " >
+                   <t t-foreach="lines" t-as="line">
+                        
+                         <span t-field="line.name" t-options="{'widget': 'text'}"/>,
+
+                        </t> 
+            <div style="top:30px">
+                    <strong>Shipping info:</strong><br/>
+                    <p>
+                    <span>HSCODE:</span>   <span t-if="o.sale_id.hs_code" t-field="o.sale_id.hs_code"/><br/>
+
+                    <span>Lc Number:</span>   <span t-if="o.sale_id.lc_number" t-field="o.sale_id.lc_number"/><br/>
+                    <span>Tin Number:</span>   <span t-if="o.sale_id.tin_num" t-field="o.sale_id.tin_num"/><br/>
+                    <span>Trade Term:</span>   <span t-if="o.sale_id.inconterm" t-field="o.sale_id.inconterm"/><br/>
+                    <span>Port of Loading:</span>   <span t-if="o.sale_id.loding_port" t-field="o.sale_id.loding_port"/><br/>
+                    <span>Port of Discharge:</span>   <span t-if="o.sale_id.port_discharge" t-field="o.sale_id.port_discharge"/><br/>
+                    <span>Place of Delivery:</span>   <span t-if="o.sale_id.place_delivery" t-field="o.sale_id.place_delivery"/><br/>
+                    <span>Payment Term:</span>   <span t-if="o.sale_id.payment_term_id" t-field="o.sale_id.payment_term_id"/><br/>
+                     <span>Origin of Goods:</span><span t-esc="o.sale_id.country_orgin.name or ''"/>
+
+
+
+
+
+                    <span>Shipping Instruction:</span>   <span t-if="o.sale_id.mode_shipment" t-field="o.sale_id.mode_shipment"/><br/>
+                    <span>Manufactured By:</span>   <span t-if="o.sale_id.manufacturer" t-field="o.sale_id.manufacturer"/><br/>
+
+
+                    </p>
+            </div>
+
+       
+                </div>
+                </div>
+            </xpath>
+</template> -->
+<!-- - - - - - - - - Delivery Slip End - - - - - - - - -  -->
+
+
+
+    </data>
+</openerp>

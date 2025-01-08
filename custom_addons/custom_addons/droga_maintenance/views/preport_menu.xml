@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <odoo>
+
+        <menuitem
+        id="menu_maintenance_reports"
+        name="Property Report"
+        parent="menu_property_managment"
+        sequence="6"/>
+        <!-- <menuitem
+            id="property_reports_droga"
+            name="Property Reports First"
+            action="droga_maintenance.property_report_action_droga1"
+            parent="menu_maintenance_reports"
+            /> -->
+              
+
+        <!-- <record id="maintenance_equipment_view_tree2" model="ir.ui.view">
+            <field name="name">maintenance.equipment.view.tree</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="arch" type="xml">
+                <tree string="Properties Report" create ="false," edit = "false">
+                    <field name="owner_user_id" widget="Employee"/>
+                    <field name="company_id" widget="Assigned Department"/>
+                    <field name="company" widget="Company and Business Unit"/>
+                    <field name="name" widget="Equipment Name"/>
+                    <field name="effective_date" widget="Effective Date" optional = "Show"/>
+                    <field name="cost" widget="Cost" /> 
+                    <field name="serial_no" widget="Serial Number" optional= "hide"/>
+                    <field name="storage_type" widget="HardDisk Type" optional= "hide"/>
+                    <field name="processor" widget="Processor Speed" optional= "hide"/>
+                    <field name="memory" widget="memory Speed" optional= "hide"/>
+                
+                </tree>
+            </field>
+        </record> -->
+
+    <record id="prperty_managment_tree_report" model="ir.ui.view" >
+    <field name="name">maintenance.equipment.view.tree.inherit</field>
+    <field name="model">maintenance.equipment</field>
+    <field name="inherit_id" ref="maintenance.hr_equipment_view_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='category_id']" position="after">
+                <field name="effective_date" />
+                <field name="cost" widget="Cost" /> 
+                <field name="serial_no" widget="Serial Number" optional= "hide"/>
+                <field name="storage_type" widget="HardDisk Type" optional= "hide"/>
+                <field name="processor" widget="Processor Speed" optional= "hide"/>
+                 <field name="memory" widget="memory Speed" optional= "hide"/>
+        </xpath>
+        <xpath expr="//tree" position="attributes">
+            <attribute name = "editable"/>
+        </xpath>
+    </field>
+</record>
+
+
+
+       <record id="property_report_action_droga1" model="ir.actions.act_window">
+            <field name="name">Property Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">maintenance.equipment</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="droga_maintenance.prperty_managment_tree_report"/>
+        </record> 
+		    
+    </odoo>
+    

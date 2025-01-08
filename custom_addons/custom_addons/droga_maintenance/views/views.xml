@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="prperty_managment_tree" model="ir.ui.view">
+    <field name="name">maintenance.equipment.view.tree.inherit</field>
+    <field name="model">maintenance.equipment</field>
+    <field name="inherit_id" ref="maintenance.hr_equipment_view_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='assign_date']" position="replace">
+                <field name="effective_date" />
+         
+        </xpath>
+    </field>
+</record>
+<record id="prperty_managment_form" model="ir.ui.view">
+    <field name="name">maintenance.equipment.view.form.inherit</field>
+    <field name="model">maintenance.equipment</field>
+    <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='category_id']" position="after">
+                <field name="company"  />
+        </xpath>
+        <xpath expr="//field[@name='location']" position="after">
+            <field name="equipment_type" />
+            <field name="stock"/>
+        </xpath>
+        
+         <xpath expr="//field[@name='partner_ref']" position="replace">
+                <field name="ime" />
+                
+        </xpath>
+        <xpath expr="//field[@name='maintenance_team_id']" position="replace">
+                <field name="maintenance_team_id" invisible="1" attrs="{'required': [('period', '!=', 0)]}" context="{'default_company_id':company_id}"/>
+        
+        </xpath>
+        <xpath expr="//field[@name='technician_user_id']" position="replace">
+                <field name="technician_user_id" invisible="1" domain="[('share', '=', False)]"/>
+         
+        </xpath>
+        <xpath expr="//field[@name='effective_date']" position="replace">
+                <field name="effective_date" invisible="1"/>
+         
+        </xpath>
+        <xpath expr="//field[@name='assign_date']" position="replace">
+                <field name="effective_date" />
+         
+        </xpath>
+        
+        <xpath expr="//div[@class='oe_button_box']" position="replace">
+            <div class="oe_button_box" name="button_box" invisible="1">
+                        <button name="131" type="action" class="oe_stat_button" context="{'default_company_id': company_id}" icon="fa-wrench">
+                            <field string="Maintenance" name="maintenance_count" widget="statinfo"/>
+                        </button>
+                    </div>
+
+                    
+            </xpath>
+            <xpath expr="//page[@name='description']" position="replace">
+            <page string="Description" name="description" invisible="1">
+                            <field name="note"/>
+                        </page>
+            </xpath>
+            <xpath expr="//page[@name='maintenance']" position="replace">
+            <page string="Maintenance" name="maintenance" invisible="1">
+                            <group>
+                                <group name="maintenance">
+                                    <field name="next_action_date" string="Next Preventive Maintenance"/>
+                                    <label for="period" string="Preventive Maintenance Frequency"/>
+                                    <div class="o_row">
+                                        <field name="period"/> days
+                                    </div>
+                                    <label for="maintenance_duration" string="Maintenance Duration"/>
+                                    <div class="o_row">
+                                        <field name="maintenance_duration"/> hours
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                         <page string="Spesfication"  >
+                            <group>
+                                    <group attrs="{'invisible': [('equipment_type', '!=', 'Sim')]}">
+                                        
+                                        
+                                        <field name="phone_number" />
+                                    </group>
+
+                                    <group attrs="{'invisible': [('equipment_type', '!=', 'Phone')]}">
+                                        
+                                        
+                                        <!-- <field name="phone_number" /> -->
+                                        
+                                        <label for="memory" string="Memory"/>
+                                        <div class="o_row" style="width=50%">
+                                                <field name="memory"/> GB
+                                        </div>
+                                        <label for="storage" string="Storage"/>
+                                        <div class="o_row" style="width=50%">
+                                            <field name="storage"/>  GB
+                                        </div>
+                                    </group>
+
+                                    <group attrs="{'invisible': [('equipment_type', '!=', 'HardDisk')]}">
+                                        
+                                        <label for="storage" string="Storage"/>
+                                        <div class="o_row" style="width=50%">
+                                            <field name="storage"/>  GB
+                                        </div>
+                                    </group>
+
+                                    <group attrs="{'invisible': [('equipment_type', '!=', 'serial_no')]}">
+                                        
+                                        <label for="storage" string="Storage"/>
+                                        <div class="o_row" style="width=50%">
+                                            <field name="storage"/>  GB
+                                        </div>
+                                    </group>
+
+                                    <group attrs="{'invisible': [('equipment_type', '!=', 'Computer')]}">
+                                        
+                                        <field name="processor" />
+
+                                            <label for="memory" string="Memory in GB"/>
+
+                                                <div class="o_row" style="width:50%"><group style="width:50%">
+                                                    <field name="memory" string=" " style="width:20%%" /> GB    </group>
+                                                </div>
+
+
+                                            <label for="storage_type" string="Storage Type"/>
+                                            <div class="o_row" >
+                                                <field name="storage_type"/>
+                                                <group attrs="{'invisible': [('storage_type', '=', 'HDD')]}">
+                                                    <field name="ssd" string="SSD in GB"  />
+                                                </group>
+
+                                                <group attrs="{'invisible': [('storage_type', '=', 'SSD')]}" >
+                                                    <field name="storage" string="HDD in GB" />
+
+                                                </group>
+                                            </div>
+                                    </group>
+
+                                    <group attrs="{'invisible': [('equipment_type', '!=', 'Camera')]}">
+                                        
+                                        
+                                            <label for="qulity" string="Quality"/>
+                                            <div class="o_row" style="width=50%">
+                                                <field name="qulity"/> MP
+                                            </div>
+                                            
+                                                <field name="type"/> 
+                                            
+                                    </group>
+                                
+                                <group > 
+                                    <group attrs="{'invisible': [('equipment_type', '!=', 'SwithRouter')]}">
+                                        <label for="speed" string="Speed"/>
+                                        <div class="o_row">
+                                            <field name="speed" />  GH
+                                            </div>
+                                        
+                                            <label for="port" string="Port" />
+                                        <div class="o_row" attrs="{'invisible': [('equipment_type', '!=', 'SwithRouter')]}">
+                                            <field name="port" />  ports
+                                        </div>
+                                    </group>
+                                     
+                                     
+                                     
+                                    
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="note"/>
+                        </page>
+
+                    
+            </xpath>
+                          
+    </field>
+</record>
+<record id="equipment_category_form_inherit" model="ir.ui.view">
+    <field name="name">equipment.category.form.inherit</field>
+    <field name="model">maintenance.equipment.category</field>
+    <field name="inherit_id" ref="maintenance.hr_equipment_category_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='note']" position="before">
+                <field name="equipment_type" />
+                <field name="cost" />
+        </xpath>
+       
+        <xpath expr="//group[@name='group_alias']" position="replace" invisible="1">
+                 <group name="group_alias" attrs="{'invisible': [('alias_domain', '=', False)]}" invisible="1" groups="base.group_no_one">
+                    <label for="alias_name" string="Email Alias"/>
+                    <div name="alias_def">
+                        <field name="alias_id" class="oe_read_only oe_inline" string="Email Alias" required="0"/>
+                        <div class="oe_edit_only oe_inline" name="edit_alias" style="display: inline;">
+                            <field name="alias_name" class="oe_inline"/>@<field name="alias_domain" class="oe_inline" readonly="1"/>
+                        </div>
+                    </div>
+                </group>      
+        </xpath>
+    </field>
+</record>
+
+            <menuitem
+        id="menu_property_managment"
+        name="Property Managment"
+        web_icon="maintenance,static/description/icon.svg"
+        sequence="150" />
+        <menuitem
+        id="menu_equipment_formd"
+        name="Properties"
+        parent="menu_property_managment"
+        action="maintenance.hr_equipment_action"
+        groups="maintenance.group_equipment_manager,base.group_user"
+        sequence="0"/>
+        <menuitem
+        id="menu_maintenance_catd"
+        name="Property Categories"
+        parent="menu_property_managment"
+        action="maintenance.hr_equipment_category_action"
+        sequence="2"/>
+        
+     <record id="maintenance_equipment_equipment_view_kanban_inherit" model="ir.ui.view">
+            <field name="name">maintenance.equipment.inherit</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='o_kanban_record_bottom']"  position="replace">
+                <field name="cost"/>
+            </xpath>
+            
+            </field>
+        </record>
+    
+        <record id="maintenance_equipment_category_view_kanban_inherit" model="ir.ui.view">
+            <field name="name">maintenance.equipment.category.inherit</field>
+            <field name="model">maintenance.equipment.category</field>
+            <field name="inherit_id" ref="maintenance.view_maintenance_equipment_category_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='maintenance_count']" position="replace">
+                <field name="cost" display="full"/>
+            </xpath>
+            <xpath expr="//div[@class='col-6 text-end']" position="replace">
+            <div class="text-end">
+                <span class="badge rounded-pill">
+                                            <strong>Cost:<span></span><field name="cost"/></strong> 
+                                      <span></span> <span></span><field name="technician_user_id" widget="many2one_avatar_user"/> </span>
+                                      </div>
+
+                    
+            </xpath>
+            </field>
+        </record>
+</odoo>
